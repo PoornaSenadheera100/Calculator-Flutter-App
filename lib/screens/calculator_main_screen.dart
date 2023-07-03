@@ -8,15 +8,47 @@ class CalculatorMainScreen extends StatefulWidget {
 }
 
 class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
-  final TextEditingController _mainUserInputController = TextEditingController();
+  final TextEditingController _mainUserInputController =
+      TextEditingController();
   final TextEditingController _resultController = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _mainUserInputController.text = '98+6';   // for testing purposes
-    _resultController.text = '104';           // for testing purposes
+    _mainUserInputController.text = '98+6'; // for testing purposes
+    _resultController.text = '104'; // for testing purposes
+  }
+
+  void onTapCBtn() {
+    _mainUserInputController.text = '';
+    _resultController.text = '';
+  }
+
+  void insertToMainUserInput(String newText) {
+    if(_mainUserInputController.text.length == 0){
+      _mainUserInputController.text = newText;
+    } else{
+      var cursorPos = _mainUserInputController.selection.base.offset;
+      print(cursorPos);
+
+      // Right text of cursor position
+      String suffixText = _mainUserInputController.text.substring(cursorPos);
+
+      // Add new text on cursor position
+      int length = newText.length;
+
+      // Get the left text of cursor
+      String prefixText = _mainUserInputController.text.substring(0, cursorPos);
+
+      _mainUserInputController.text = prefixText + newText + suffixText;
+
+      // Cursor move to end of added text
+      _mainUserInputController.selection = TextSelection(
+        baseOffset: cursorPos + length,
+        extentOffset: cursorPos + length,
+      );
+    }
   }
 
   @override
@@ -31,9 +63,8 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                   child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: TextField(
-                  decoration: const InputDecoration(
-                    border: InputBorder.none
-                  ),
+                  autofocus: true,
+                  decoration: const InputDecoration(border: InputBorder.none),
                   controller: _mainUserInputController,
                   style: const TextStyle(color: Colors.white, fontSize: 40.0),
                   keyboardType: TextInputType.none,
@@ -46,14 +77,14 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
             children: [
               Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: TextField(
-                      enabled: false,
-                controller: _resultController,
-                style: const TextStyle(color: Colors.white70, fontSize: 30.0),
-                      textDirection: TextDirection.rtl,
-              ),
-                  ))
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: TextField(
+                  enabled: false,
+                  controller: _resultController,
+                  style: const TextStyle(color: Colors.white70, fontSize: 30.0),
+                  textDirection: TextDirection.rtl,
+                ),
+              ))
             ],
           ),
           Container(
@@ -105,7 +136,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              onTapCBtn();
+                            },
                             icon: const Text(
                               "C",
                               style:
@@ -157,7 +190,10 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("7");
+                              print(_mainUserInputController.text);
+                            },
                             icon: const Text(
                               "7",
                               style: TextStyle(
@@ -168,7 +204,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("8");
+                            },
                             icon: const Text(
                               "8",
                               style: TextStyle(
@@ -344,7 +382,7 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                       radius: 35.0,
                       backgroundColor: Colors.lightGreen,
                       child: IconButton(
-                        splashColor: Colors.purple,     // Error
+                        splashColor: Colors.purple, // Error
                         onPressed: () {},
                         icon: const Text(
                           "=",
