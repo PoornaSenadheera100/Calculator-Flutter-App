@@ -26,8 +26,8 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
   }
 
   void insertToMainUserInput(String newText) {
-    if(_mainUserInputController.text.length == 0){
-      _mainUserInputController.text = newText;
+    if(_mainUserInputController.selection.base.offset == -1){
+      _mainUserInputController.text = _mainUserInputController.text + newText;
     } else{
       var cursorPos = _mainUserInputController.selection.base.offset;
       print(cursorPos);
@@ -48,6 +48,17 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
         baseOffset: cursorPos + length,
         extentOffset: cursorPos + length,
       );
+    }
+  }
+
+  void onTapEqBtn(){
+    var array = List;
+    int currentVarPosition = 0;
+
+    for(var i = 0; i < _mainUserInputController.text.length; i++){
+      if(_mainUserInputController.text.substring(i, i+1) == '0'){
+
+      }
     }
   }
 
@@ -171,7 +182,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("/");
+                            },
                             icon: const Text(
                               "÷",
                               style: TextStyle(
@@ -217,7 +230,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("9");
+                            },
                             icon: const Text(
                               "9",
                               style: TextStyle(
@@ -228,7 +243,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("*");
+                            },
                             icon: const Text(
                               "×",
                               style: TextStyle(
@@ -247,7 +264,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("4");
+                            },
                             icon: const Text(
                               "4",
                               style: TextStyle(
@@ -258,7 +277,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("5");
+                            },
                             icon: const Text(
                               "5",
                               style: TextStyle(
@@ -269,7 +290,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("6");
+                            },
                             icon: const Text(
                               "6",
                               style: TextStyle(
@@ -280,7 +303,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("-");
+                            },
                             icon: const Text(
                               "–",
                               style: TextStyle(
@@ -299,7 +324,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("1");
+                            },
                             icon: const Text(
                               "1",
                               style: TextStyle(
@@ -310,7 +337,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("2");
+                            },
                             icon: const Text(
                               "2",
                               style: TextStyle(
@@ -321,7 +350,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("3");
+                            },
                             icon: const Text(
                               "3",
                               style: TextStyle(
@@ -332,7 +363,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                         radius: 35.0,
                         backgroundColor: Colors.white24,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              insertToMainUserInput("+");
+                            },
                             icon: const Text(
                               "+",
                               style: TextStyle(
@@ -360,7 +393,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                       radius: 35.0,
                       backgroundColor: Colors.white24,
                       child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            insertToMainUserInput("0");
+                          },
                           icon: const Text(
                             "0",
                             style:
@@ -371,7 +406,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                       radius: 35.0,
                       backgroundColor: Colors.white24,
                       child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            insertToMainUserInput(".");
+                          },
                           icon: const Text(
                             ".",
                             style:
@@ -383,7 +420,9 @@ class _CalculatorMainScreenState extends State<CalculatorMainScreen> {
                       backgroundColor: Colors.lightGreen,
                       child: IconButton(
                         splashColor: Colors.purple, // Error
-                        onPressed: () {},
+                        onPressed: () {
+                          onTapEqBtn();
+                        },
                         icon: const Text(
                           "=",
                           style: TextStyle(color: Colors.white, fontSize: 30.0),
